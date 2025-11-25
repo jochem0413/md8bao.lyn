@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>劉宇寧誇誇團文案產生器 🌻</title>
+    <!-- 引入 Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Lucide Icons for aesthetic icons --><script type="module" src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        /* Base Styling & Font */
+        body {
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            background-color: #fcf8f0; /* Soft cream/yellow background */
+        }
+        
+        /* Custom Scrollbar for Textareas */
+        textarea::-webkit-scrollbar, .preview-box::-webkit-scrollbar {
+            width: 6px;
+        }
+        textarea::-webkit-scrollbar-thumb, .preview-box::-webkit-scrollbar-thumb {
+            background-color: #fcd34d; /* Yellow-400 */
+            border-radius: 3px;
+        }
+        
+        /* AI Button Primary Style (Now using flat, cleaner design) */
+        .btn-primary {
+            transition: all 0.15s ease;
+            /* 移除自定義陰影，使用更乾淨的風格 */
+            background-color: #f97316; /* Orange-600 */
+            @apply rounded-xl shadow-none; /* 更簡潔的圓角和無陰影 */
+        }
+        .btn-primary:hover {
+            transform: none; /* 移除 hover 提升效果 */
+            box-shadow: none;
+            background-color: #ea580c; /* Orange-700 */
+        }
+        .btn-primary:active {
+            transform: translateY(1px);
+            box-shadow: none;
+        }
+
+        /* Template Button Styling (Removed since we use select dropdown now) */
+        .tab-btn {
+            @apply p-2 sm:px-4 sm:py-2 border-2 border-yellow-500 rounded-lg cursor-pointer transition-all duration-200 text-sm font-semibold bg-white text-yellow-700 shadow-sm;
+        }
+        .tab-btn.active {
+            @apply bg-yellow-500 text-white shadow-md;
+        }
+        .tab-btn:not(.active):hover {
+            @apply bg-yellow-100;
+        }
+
+
+        /* Loading animation (Orange/Yellow Theme) */
+        .loading-spinner {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #f97316; /* Orange-600 for text */
+            padding: 0; /* Adjusted padding */
+        }
+        .dot {
+            width: 8px;
+            height: 8px;
+            background-color: #fcd34d; /* Yellow-400 dot */
+            border-radius: 50%;
+            animation: dot-bounce 1s infinite ease-in-out both;
+        }
+        .dot:nth-child(1) { animation-delay: -0.32s; }
+        .dot:nth-child(2) { animation-delay: -0.16s; }
+        @keyframes dot-bounce {
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1.0); }
+        }
+
+        /* Copy Card Style (for batch results) */
+        .copy-card {
+            @apply p-4 border border-yellow-300 bg-white rounded-xl shadow-lg mb-4;
+            transition: all 0.5s ease-out;
+            opacity: 1;
+        }
+        .copy-card.fade-out {
+            opacity: 0;
+            height: 0;
+            margin-top: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            overflow: hidden;
+        }
+
+        /* Custom Toast Styles */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+            color: white;
+            font-weight: 600;
+        }
+        .toast.show { display: flex; }
+        .toast-success { background-color: #10b981; } 
+        .toast-warning { background-color: #f59e0b; } 
+        .toast-error { background-color: #ef4444; } 
+        .toast-info { background-color: #3b82f6; } 
+
+        /* Ensure two columns on medium screens (md) for better preview visibility */
+        @media (min-width: 768px) {
+            .content-grid-wrapper {
+                grid-template-columns: 1fr 1fr; 
+            }
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8 min-h-screen flex items-center justify-center">
+
+    <div class="container w-full max-w-4xl bg-white rounded-2xl shadow-xl border border-gray-100">
+        <div class="header bg-gradient-to-r from-yellow-400 to-orange-500 text-white p-8 rounded-t-2xl text-center">
+            <h1 class="text-3xl sm:text-4xl font-extrabold tracking-wide mb-2 flex items-center justify-center">
+                <i data-lucide="sun" class="w-7 h-7 mr-3"></i> 劉宇寧誇誇團文案產生器 🌻
+            </h1>
+            <p class="text-sm opacity-90">作者 by 小八寶粥 | 僅供摩飯使用｜有問題可聯絡 ig: md.8bao</p>
+            <p class="text-xs opacity-70 mt-1">版本號：v2.5 (2025.11.24 更新)</p>
+        </div>
+
+        <div class="content p-6 sm:p-8">
+
+            <!-- 1. 頂部獨立區塊：評論文案（含個人ID） - FULL WIDTH --><div class="section border-b pb-6 mb-6 border-orange-200">
+                <div class="section-title text-orange-600 mb-4">
+                    <i data-lucide="message-square" class="w-5 h-5 text-orange-400"></i>
+                    評論文案（含個人ID）
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="flex-grow">
+                        <label for="personalIdInput" class="block mb-2 text-gray-600 text-sm font-semibold">
+                            輸入您的個人 ID (將自動附加到文末並轉為簡體字)：
+                        </label>
+                        <input type="text" id="personalIdInput" value="寧的向日葵" 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors" 
+                               placeholder="例如：摩飯 ID" oninput="saveSettings()">
+                    </div>
+                </div>
+                
+                <button class="btn w-full bg-orange-500 text-white hover:bg-orange-600 font-semibold mt-3 py-3 px-4 rounded-xl transition-colors" onclick="copyComment()">
+                    <i data-lucide="copy" class="w-4 h-4 mr-2"></i>
+                    複製完整評論文案 (簡體)
+                </button>
+            </div>
+
+            <!-- 2. 兩欄佈局：左側控制台 | 右側結果 --><div class="grid grid-cols-1 md:grid-cols-2 gap-8 content-grid-wrapper">
+
+                <!-- LEFT COLUMN: Settings & Generation Button (貼文控制台) --><div>
+                    <!-- 2.1 貼文生成設置區塊 (風格/模板/影片/CR) --><div class="section mb-6">
+                        <div class="section-title text-yellow-600 mb-4">
+                            <i data-lucide="list-checks" class="w-5 h-5 text-yellow-400"></i>
+                            貼文內容設置 (AI 批次生成)
+                        </div>
+
+                        <!-- NEW: 文案風格選擇 --><div class="mb-6">
+                            <label for="styleSelect" class="block mb-2 text-gray-600 text-sm font-semibold">
+                                🎨 文案生成風格：
+                            </label>
+                            <select id="styleSelect" class="w-full p-3 border border-yellow-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 appearance-none bg-white transition-colors">
+                                <option value="古風優雅" selected>古風優雅 (預設)</option>
+                                <option value="現代熱情">現代熱情 (粉絲向)</option>
+                                <option value="青春活力">青春活力 (清新)</option>
+                                <option value="詩意浪漫">詩意浪漫 (抒情)</option>
+                            </select>
+                        </div>
+                        <!-- End NEW --><!-- 模板選擇 (Dropdown restored) --><div class="mb-3">
+                            <label for="templateSelectDropdown" class="block mb-2 text-gray-600 text-sm font-semibold">
+                                選擇貼文模板 (Hashtag/提及/連結)：
+                            </label>
+                            <!-- 恢復下拉選單 --><select id="templateSelectDropdown" onchange="selectTemplateDropdown(this.value)" 
+                                    class="w-full p-3 border border-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-500 transition-colors bg-white shadow-sm font-semibold">
+                                <!-- 模板選項，data-preview 包含摘要資訊 --><option value="1" data-preview="OLAY 代言, 2025巡演, 摩登兄弟超話 (含3連結)">模板 1 (OLAY/巡演)</option>
+                                <option value="2" data-preview="音樂緣計劃, 閒魚代言, 摩登兄弟超話 (含3連結)">模板 2 (音樂/閒魚)</option>
+                                <option value="3" data-preview="新歌榜單, 騰訊音樂由你榜, 摩登兄弟超話 (含3連結)">模板 3 (新歌/榜單)</option>
+                            </select>
+                            
+                            <!-- 模板內容預覽區塊 --><div id="templatePreviewSummary" class="text-sm mt-3 p-3 bg-yellow-100 text-yellow-800 rounded-lg border border-yellow-200 font-medium transition-opacity duration-300">
+                                <!-- 預設顯示模板 1 的內容 --></div>
+                        </div>
+
+                        <!-- CR 浮水印選項 --><div class="flex items-center mt-3 pt-2">
+                            <input type="checkbox" id="crWatermarkCheckbox" 
+                                   class="h-5 w-5 text-yellow-600 border-gray-300 rounded focus:ring-yellow-500" onchange="saveSettings()">
+                            <label for="crWatermarkCheckbox" class="text-gray-700 select-none font-medium ml-2 text-sm">
+                                貼文底部添加「cr 見浮水印」
+                            </label>
+                        </div>
+
+                        <div class="grid grid-cols-1 gap-4 mt-6">
+                            <!-- 影片連結選擇 (選填) --><div class="col-span-1">
+                                <label for="videoSelect" class="block mb-2 text-gray-600 text-sm font-semibold">
+                                    🎬 選填影片連結
+                                </label>
+                                <select id="videoSelect" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-colors">
+                                    <option value="" selected>❌ 無影片 (僅文案)</option>
+                                    <option value="RANDOM_ANY">🎲 隨機選擇一條影片 (每卡不同)</option>
+                                    <!-- 完整的預設視頻連結清單 --><optgroup label="━━━ 🆕 最新視頻 ━━━">
+                                        <option value="http://t.cn/AXLzjlVh">🔥🔥最新播放量1</option>
+                                        <option value="http://tcn/AXLz8d3b">🔥🔥最新播放量2</option>
+                                        <option value="http://tcn/AX2DHuN9">与寧一起做"真話擔當"</option>
+                                        <option value="http://tcn/AXAWueo2">刘宇宁碧浪品牌帶言了新福利</option>
+                                        <option value="http://tcn/AX2Hav4j">🔥提高播放量1</option>
+                                        <option value="http://tcn/AX2Y8IEM">🔥提高播放量2</option>
+                                        <option value="http://tcn/AX2YM0pO">🔥提高播放量3</option>
+                                        <option value="http://tcn/AX2jdnva">🔥提高播放量4</option>
+                                        <option value="http://tcn/AX2HQ4qo">🔥提高播放量5</option>
+                                        <option value="http://tcn/AX2HqT7s">🔥提高播放量6</option>
+                                        <option value="http://tcn/AX2YfeEp">🔥提高播放量7</option>
+                                        <option value="http://tcn/AX2ilbMN">🔥提高播放量8</option>
+                                        <option value="http://tcn/AX2icZqE">🔥提高播放量9</option>
+                                        <option value="http://tcn/AX2VzXH8">🔥提高播放量10</option>
+                                        <option value="http://tcn/AXAFVCJG">最新视频11.9-1</option>
+                                        <option value="http://tcn/AXAF4J3O">最新视频11.9-2</option>
+                                        <option value="http://tcn/AXAkH2Bt">最新视频11.9-3</option>
+                                        <option value="http://tcn/AX24Ozxm">最新视频11.9-4</option>
+                                        <option value="http://tcn/AX2ArD3w">最新视频11.9-5</option>
+                                        <option value="http://tcn/AXAFTVDN">最新视频11.9-6</option>
+                                        <option value="http://tcn/AX2yRsJX">最新视频11.9-7</option>
+                                        <option value="http://tcn/AX2y8gX4">最新视频11.9-8</option>
+                                        <option value="http://tcn/AX2whxdk">和刘宇宁一起来京东11.11</option>
+                                        <option value="http://tcn/AXAMheQ5">最新视频1</option>
+                                        <option value="http://tcn/AXAVbRat">最新视频2</option>
+                                        <option value="http://tcn/AXAVEaJu">最新视频3</option>
+                                        <option value="http://tcn/AXAtrYEM">最新视频4</option>
+                                        <option value="http://tcn/AXAlIp4n">最新视频5</option>
+                                        <option value="http://tcn/AXAWrhDh">最新视频6</option>
+                                        <option value="http://tcn/AXAOVvNu">最新视频7</option>
+                                        <option value="http://tcn/AXA0RfPp">最新视频8</option>
+                                        <option value="http://tcn/AXAOv00C">最新视频9</option>
+                                        <option value="http://tcn/AXA0uua9">最新视频10</option>
+                                        <option value="http://tcn/AXAIQHUw">刘宇宁送你大大大大福利</option>
+                                        <option value="http://tcn/AXAG3KDo">刘宇宁的双11剧场</option>
+                                        <option value="http://tcn/AXAZ31CE">刘宇宁OLAY身体护理品牌全線代言人</option>
+                                        <option value="http://tcn/AXwpu3NZ">劉宇宁守护大家的暖绒绒時刻</option>
+                                        <option value="http://tcn/AXAZX3q4">劉宇宁点亮神奇灯牌</option>
+                                        <option value="http://tcn/AXACmJm6">刘宇宁专属心动大屏飞艇</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 1️⃣ 京東新銳代言人 ━━━">
+                                        <option value="http://tcn/AXzTY6lb">刘宇宁腿長超1.1米10.14</option>
+                                        <option value="http://tcn/AXzT5bGd">11.11加入刘宇宁的电玩宇宙10.14</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 2️⃣ 碧浪品牌代言人 ━━━">
+                                        <option value="http://tcn/AXwpu3NZ">劉宇宁守护大家的暖绒绒時刻10.24</option>
+                                        <option value="http://tcn/AXw0vWjc">和他碧浪一起守护你的暖绒绒10.23</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 3️⃣ 神奇的闲鱼代言人 ━━━">
+                                        <option value="http://tcn/AXAZX3q4">劉宇宁点亮神奇灯牌10.29</option>
+                                        <option value="http://tcn/AXw9nGk8">和代言人刘宇宁一起先上闲鱼10.22</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 4️⃣ 2025美好奇妙夜 ━━━">
+                                        <option value="http://tcn/AXA2WPVR">刘宇宁合唱《侠客情》10.29</option>
+                                        <option value="http://tcn/AXAL7JB2">刘宇宁《奉上》10.29</option>
+                                        <option value="http://tcn/AXALP9Eb">劉宇宁《爱江山更爱美人》直拍10.29</option>
+                                        <option value="http://tcn/AXwsdpbl">刘宇宁伴着金曲找寻美好记忆10.28</option>
+                                        <option value="http://tcn/AXwiwOyI">刘宇宁2025美好奇妙夜阵容10.21</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 5️⃣ 音乐緣計劃2 ━━━">
+                                        <option value="http://tcn/AXAZqU5U">刘宇宁超有愛的爆笑互动日常10.29</option>
+                                        <option value="http://tcn/AXwEDrHX">劉宇宁故作"破音"状接梗10.25</option>
+                                        <option value="http://tcn/AXwEo3vl">刘宇宁到底有多香10.25</option>
+                                        <option value="http://tcn/AXwRhdwe">刘宇宁音乐缘計劃第二季抢先10.25</option>
+                                        <option value="http://tcn/AXwQWqKm">劉宇宁《自诩周全》舞台10.24</option>
+                                        <option value="http://tcn/AXwT1Irc">刘宇宁一开口对味了10.24</option>
+                                        <option value="http://tcn/AXwjkr8u">劉宇宁已做好准备10.24</option>
+                                        <option value="http://tcn/AXw0MF4O">劉宇宁画風怎么和别人不一样10.23</option>
+                                        <option value="http://tcn/AXwo17Py">劉宇宁化身"导师"10.22</option>
+                                        <option value="http://tcn/AXwCtWZv">刘宇宁音乐缘计划第二季抢先10.22</option>
+                                        <option value="http://tcn/AXwVEw6a">刘宇宁心中"音乐理想型"10.20</option>
+                                        <option value="http://tcn/AXwVIgqa">劉宇宁音乐缘计划第二季抢先10.20</option>
+                                        <option value="http://tcn/AXwwkHn9">刘宇宁真摸到音综天花板了10.17</option>
+                                        <option value="http://tcn/AXw7UeM5">劉宇宁实力唱功诠释原创態度10.17</option>
+                                        <option value="http://tcn/AXww6KC5">刘宇宁机智应对10.17</option>
+                                        <option value="http://tcn/AXw7IcfN">刘宇宁为为快乐相聚10.17</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 6️⃣ 万劍不改 ━━━">
+                                        <option value="http://tcn/AXwQhlAo">刘宇宁《万劍不改》MV10.28</option>
+                                        <option value="http://tcn/AXwbD2VU">刘宇宁天地劍心OST超長試聽10.19</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 7️⃣ 微博视界大会 ━━━">
+                                        <option value="http://tcn/AXwgknav">刘宇宁很久没有为誰折腰了10.27</option>
+                                        <option value="http://tcn/AXzxtkT8">劉宇宁打戲天花板10.10</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 8️⃣ 玫瑰叢生 ━━━">
+                                        <option value="http://tcn/AXwgbZ3H">刘宇宁鵝廠2026大劇片單10.27</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 9️⃣ 地球超新鲜 ━━━">
+                                        <option value="http://tcn/AXwDoxvm">刘宇宁鵝廠2026綜藝片單10.27</option>
+                                        <option value="http://tcn/AXz9PoGT">刘宇宁地球超新鮮庆功宴10.12</option>
+                                        <option value="http://tcn/AXzCazWy">刘宇宁想和開推朋友一起旅行10.12</option>
+                                        <option value="http://tcn/AXz4jQfX">刘宇宁地球團抽象特效瞬間10.8</option>
+                                        <option value="http://tcn/AXzAxL0s">刘宇宁地球團人均"大廚"10.7</option>
+                                        <option value="http://tcn/AX7gD9D7">刘宇宁清唱《好久不见》10.5</option>
+                                        <option value="http://tcn/AX7ggpcl">劉宇宁自己蛐蛐自己10.5</option>
+                                        <option value="http://tcn/AX7ge70h">刘宇宁烤茄子全場歡呼10.5</option>
+                                        <option value="http://tcn/AX7kvIiX">劉宇宁地球團玩轉粵语10.5</option>
+                                        <option value="http://tcn/AX7ROCGf">刘宇宁地球團的大型乾杯現場10.3</option>
+                                        <option value="http://tcn/AX7nRA8P">劉宇宁地球團的經典名場景10.3</option>
+                                        <option value="http://tcn/AX7HlCrY">刘宇宁地球團的大型"拍一拍"10.2</option>
+                                        <option value="http://tcn/AX70DSad">刘宇宁的"大展厨藝之旅"10.1</option>
+                                        <option value="http://tcn/AX70PGXC">刘宇宁吃播真的太香了10.1</option>
+                                        <option value="http://tcn/AX70XjIu">刘宇宁地球超新鮮美食篇10.1</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 🔟 开始推理吧4 ━━━">
+                                        <option value="http://tcn/AXwgzOAx">刘宇宁开始推理吧4主角團10.27</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 1️⃣1️⃣ 王者荣耀共创之夜 ━━━">
+                                        <option value="http://tcn/AXwrnI2N">刘宇宁王者峡谷愛情保安10.26</option>
+                                        <option value="http://tcn/AXwofcNo">刘宇宁相約王者荣耀共創之夜10.22</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 1️⃣2️⃣ 不沐春风不遇你 ━━━">
+                                        <option value="http://tcn/AXwoqHpo">刘宇宁《不沐春风不遇你》MV10.22</option>
+                                        <option value="http://tcn/AXw7wPIa">刘宇宁水龍吟OST陣容官宣10.17</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 1️⃣3️⃣ 不忘 ━━━">
+                                        <option value="http://tcn/AXwo177x">刘宇宁《不忘》MV10.22</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 1️⃣4️⃣ 1111惊喜之夜 ━━━">
+                                        <option value="http://tcn/AXwVGxsZ">刘宇宁東方衛視1111驚喜之夜10.20</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 1️⃣5️⃣ 毒酒 ━━━">
+                                        <option value="http://tcn/AXzZj1iG">入青雲刘宇宁毒酒MV10.7</option>
+                                        <option value="http://tcn/AX7g89KA">刘宇宁入青雲OST陣容試聽版10.5</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 1️⃣6️⃣ 我愛你中國 ━━━">
+                                        <option value="http://tcn/AX7N0TXX">刘宇宁合唱《我愛你中國》MV10.1</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 1️⃣7️⃣ 東方風雲榜 ━━━">
+                                        <option value="http://tcn/AX7oWOI7">劉宇宁上海演唱會梅奔9.30</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 1️⃣8️⃣ 用歌聲各地文旅 ━━━">
+                                        <option value="http://tcn/AXzQXB7D">刘宇宁歌聲内蒙古錫盟草原10.14</option>
+                                        <option value="http://tcn/AXzJJRQ1">刘宇宁歌聲錢塘江四潮合一10.10</option>
+                                        <option value="http://tcn/AXzblSh8">劉宇宁歌聲遼寧丹東天橋溝10.8</option>
+                                        <option value="http://tcn/AXzAj58n">刘宇寧歌聲内蒙古海拉爾10.7</option>
+                                        <option value="http://tcn/AX7rIobU">和刘宇宁一起感受故宮魅力10.4</option>
+                                        <option value="http://tcn/AX7O2Etp">刘宇宁歌聲阿爾山秋日畫卷10.1</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 1️⃣9️⃣ 直播+行程+微博視頻 ━━━">
+                                        <option value="http://tcn/AXwgc1hH">劉宇宁正在解鎖中10.27</option>
+                                        <option value="http://tcn/AXwdv3qM">刘宇宁《烟火星辰》直拍10.26</option>
+                                        <option value="http://tcn/AXwnY04w">刘宇宁跨越山海萬里乘風10.25</option>
+                                        <option value="http://tcn/AXwnJmv4">刘宇宁西安演唱會10.25</option>
+                                        <option value="http://tcn/AXwQBoJD">劉宇宁寧与「音緣」有個約會10.24</option>
+                                        <option value="http://tcn/AXwQHq0V">刘宇宁《自诩周全》彩排直拍10.24</option>
+                                        <option value="http://tcn/AXwQAQdd">刘宇宁的2025巡演西安站10.24</option>
+                                        <option value="http://tcn/AXwjBMoY">刘宇宁上海站《戀語1910》10.24</option>
+                                        <option value="http://tcn/AXwYcXqb">刘宇宁上海站《友情岁月》10.24</option>
+                                        <option value="http://tcn/AXwMW3S3">刘宇宁直播10.20</option>
+                                        <option value="http://tcn/AXwVWbtW">刘宇宁寧在幹橫麽10.20</option>
+                                        <option value="http://tcn/AXwGybpF">刘宇宁《傷心的人都在跳舞》10.19</option>
+                                        <option value="http://tcn/AXzTn1aS">刘宇宁的2025巡演西安站10.14</option>
+                                        <option value="http://tcn/AXza6LiW">刘宇宁上海站《奇妙的驚喜》10.11</option>
+                                        <option value="http://tcn/AXzAKJXR">刘宇宁直播10.7</option>
+                                        <option value="http://tcn/AXzvfDNV">刘宇宁呆米特派員"圓圓"花絮10.6</option>
+                                        <option value="http://tcn/AX7kvMFY">刘宇宁上海站合唱《提到了你》10.5</option>
+                                        <option value="http://tcn/AX7B1Qsg">刘宇宁的2025巡演時空交錯10.4</option>
+                                        <option value="http://tcn/AX7Ty0uI">呆米特派員親自拍攝的舞蹈花絮10.2</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+
+                            <!-- NEW: 自填影片連結 -->
+                            <div class="col-span-1 mt-4">
+                                <label for="customVideoLinkInput" class="block mb-2 text-gray-600 text-sm font-semibold">
+                                    🔗 手動輸入連結 (將覆蓋預設選擇)：
+                                </label>
+                                <input type="text" id="customVideoLinkInput" placeholder="貼上影片連結，複製後會自動清除"
+                                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-colors">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2.2 操作按鈕 (新增生成 1 組的按鈕) --><div class="btn-group mb-8 grid grid-cols-2 gap-3">
+                        <!-- 單次生成按鈕 -->
+                        <button class="btn w-full bg-orange-500 text-white hover:bg-orange-600 font-semibold py-3 px-4 rounded-xl transition-colors" onclick="generateMultiple(1, this)" id="generateSingleBtn">
+                            <span class="flex items-center justify-center">生成 1 組文案卡片</span>
+                        </button>
+                        <!-- 批次生成按鈕 (原來的) -->
+                        <button class="btn w-full bg-orange-500 text-white hover:bg-orange-600 font-semibold py-3 px-4 rounded-xl transition-colors" onclick="generateMultiple(5, this)" id="generateFiveBtn">
+                            <span class="flex items-center justify-center">生成 5 組文案卡片</span>
+                        </button>
+                    </div>
+                
+                </div>
+
+                <!-- RIGHT COLUMN: Results --><div class="lg:mt-0 mt-8"> 
+                    <!-- 4. 結果顯示區 (卡片批次) --><div class="section">
+                        <div class="section-title text-orange-600 mb-4">
+                            <i data-lucide="list-ordered" class="w-5 h-5 text-orange-400"></i>
+                            AI 批次結果 (點擊複製後卡片會消失)
+                        </div>
+                        <div id="resultsContainer" class="min-h-[500px] p-2 border border-yellow-300 rounded-lg bg-yellow-50 overflow-y-auto">
+                            <p class="text-center text-gray-500 pt-8" id="initialMessage">請點擊左側按鈕開始批次生成。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- 提示toast --><div class="toast" id="toast">
+        <span>✅</span>
+        <span id="toastMsg">複製成功！</span>
+    </div>
+
+    <script>
+        // --- AI Generation Constants ---
+        const API_URL_BASE = `/api/generate`;
+        const QUOTE_PLACEHOLDER = "[AI_QUOTE]"; // 模板中的佔位符
+        const CR_TEXT = '\n\ncr 見浮水印'; // CR 文本
+        
+        // --- Emoji Pool (新增多組 Emoji 符號) ---
+        const EMOJI_POOL = [
+            '「🌻\n',     // 簡潔向日葵
+            '「🧡✨\n',   // 橘色心形與星星
+            '「☀️💛\n',   // 太陽與黃色心形
+            '「☀️🔆\n',   // 太陽與光芒
+            '「🌼💖\n',   // 小花與粉色心形 (可保留少量其他顏色)
+            '「🌅🌟\n',   // 日出與星星
+        ];
+        const QUOTE_SUFFIX = '」';
+        const IDOL_NAME = "刘宇寧"; // 固定劉宇寧的名稱 (確保使用一致的中文)
+        
+        // --- 評論模板基礎內容 ---
+        const COMMENT_TEMPLATE_BASE = "[打call]京东新銳代言人刘宇宁邀你加入11.11｜刘宇宁碧浪品牌代言人|神奇的闲鱼代言人刘宇宁｜刘宇宁海飛絲活力代言人 |刘宇宁純甄品牌代言人|劉宇寧小貝｜劉宇寧玫瑰叢生｜劉宇寧｜刘宇寧的2025巡演|刘宇寧的第二張專輯刘宇寧的|劉宇寧音樂緣計劃|OLAY身體護理品牌全線代言人刘宇寧➕ "; // 模板末尾加上 "➕ " 等待 ID 
+
+        // 固定連結和提及區塊的內容 (方便複製)
+        const FIXED_LINKS = `http://t.cn/AXLbrX6k\nhttp://t.cn/AX2wIrjE\nhttp://t.cn/AX2YWB8S`;
+        const MENTION_BLOCK = `@摩登兄弟刘宇寧 刘宇寧小貝｜刘宇寧玫瑰叢生 摩登兄弟劉宇寧｜劉宇寧｜寧哥｜lyn`;
+
+
+        // --- Templates Storage (可自訂) ---
+        // 集中管理三個模板的內容，模板內容固定在 JS 中
+        let masterTemplates = {
+            1: {
+                // 結構: Hashtag -> AI -> 空行 -> 固定連結 -> 空行 -> 提及
+                content: `#OLAY身體護理品牌全線代言人刘宇寧# | #劉宇寧的2025巡演# | #摩登兄弟[超話]#\n\n${QUOTE_PLACEHOLDER}\n\n${FIXED_LINKS}\n\n${MENTION_BLOCK}`,
+                preview: 'OLAY 代言, 2025巡演, 摩登兄弟超話 (含3連結)'
+            },
+            2: {
+                // 結構: Hashtag -> AI -> 空行 -> 固定連結 -> 空行 -> 提及 (所有模板都必須包含固定連結)
+                content: `#劉宇寧音樂緣計劃# | #神奇的闲鱼代言人刘宇寧# | #摩登兄弟[超話]#\n\n${QUOTE_PLACEHOLDER}\n\n${FIXED_LINKS}\n\n${MENTION_BLOCK}`,
+                preview: '音樂緣計劃, 閒魚代言, 摩登兄弟超話 (含3連結)'
+            },
+            3: {
+                // 結構: Hashtag -> AI -> 空行 -> 固定連結 -> 空行 -> 提及 (以新歌主題為 Hashtag)
+                content: `#劉宇寧新歌若沒有你# | #腾讯音乐由你榜# | #摩登兄弟[超話]#\n\n${QUOTE_PLACEHOLDER}\n\n${FIXED_LINKS}\n\n@摩登兄弟刘宇寧 刘宇寧小貝｜刘宇寧玫瑰叢生 摩登兄弟劉宇寧｜劉宇寧｜寧哥｜lyn`,
+                preview: '新歌榜單, 騰訊音樂由你榜, 摩登兄弟超話 (含3連結)'
+            }
+        };
+        
+        let selectedTemplateId = '1'; // 預設選擇模板 1
+        let videoPool = []; // 儲存所有可供隨機選擇的影片連結
+
+        // --- DOM Elements ---
+        const generateBtn = document.getElementById('generateBtn');
+        const loadingDots = document.getElementById('loadingDots');
+        const generateBtnText = document.getElementById('generateBtnText');
+        const styleSelect = document.getElementById('styleSelect'); // NEW: Style Select DOM
+        const videoSelect = document.getElementById('videoSelect');
+        const customVideoLinkInput = document.getElementById('customVideoLinkInput'); // NEW: 自填連結輸入框
+        const resultsContainer = document.getElementById('resultsContainer');
+        const initialMessage = document.getElementById('initialMessage');
+        const templatePreviewSummary = document.getElementById('templatePreviewSummary'); // 新增預覽摘要 DOM 引用
+        const personalIdInput = document.getElementById('personalIdInput');
+        const crWatermarkCheckbox = document.getElementById('crWatermarkCheckbox'); 
+
+        // --- Video Utility ---
+
+        /**
+         * 提取所有預設影片連結到 videoPool
+         */
+        function populateVideoPool() {
+            videoPool = [];
+            const select = document.getElementById('videoSelect');
+            
+            // 遍歷所有 optgroup 和 option (除了第一個 "不添加影片" 和 "隨機" 選項)
+            Array.from(select.children).forEach(group => {
+                if (group.tagName === 'OPTGROUP') {
+                    Array.from(group.children).forEach(option => {
+                        if (option.value && option.value !== 'RANDOM_ANY') {
+                            // 修正 tcn 為 t.cn
+                             let value = option.value.replace(/tcn\//g, 't.cn/');
+                            videoPool.push(value);
+                        }
+                    });
+                } 
+            });
+            console.log(`Video pool populated with ${videoPool.length} links.`);
+        }
+
+        /**
+         * 從影片庫中隨機選擇一條影片
+         */
+        function getRandomVideoLink() {
+            if (videoPool.length === 0) {
+                return '';
+            }
+            const randomIndex = Math.floor(Math.random() * videoPool.length);
+            return videoPool[randomIndex];
+        }
+
+        /**
+         * 隨機選擇一組 Emoji 符號作為前綴
+         */
+        function getRandomEmojiPrefix() {
+            const randomIndex = Math.floor(Math.random() * EMOJI_POOL.length);
+            return EMOJI_POOL[randomIndex];
+        }
+
+        /**
+         * 繁體轉簡體 (簡化版本, 針對常見字)
+         */
+        function toSimplified(text) {
+             // 簡化常用的繁體字
+             text = text.replace(/劉/g, '刘');
+             text = text.replace(/寧/g, '宁');
+             text = text.replace(/團/g, '团');
+             text = text.replace(/體/g, '体');
+             text = text.replace(/們/g, '们');
+             text = text.replace(/個/g, '个');
+             text = text.replace(/號/g, '号');
+             text = text.replace(/萬/g, '万');
+             text = text.replace(/發/g, '发');
+             text = text.replace(/語/g, '语');
+             text = text.replace(/從/g, '从');
+             text = text.replace(/對/g, '对');
+             text = text.replace(/這/g, '这');
+             text = text.replace(/邊/g, '边');
+             text = text.replace(/裡/g, '里');
+             text = text.replace(/訊/g, '讯');
+             text = text.replace(new RegExp('計劃', 'g'), '计划');
+             // 確保「劉宇寧小貝」中的「劉宇寧」是簡體
+             text = text.replace(/劉宇寧/g, '刘宇宁');
+             text = text.replace(/叢生/g, '丛生');
+             text = text.replace(/衛視/g, '卫视');
+             text = text.replace(/視頻/g, '视频');
+             text = text.replace(/純甄/g, '纯甄'); // 確保簡體不會被重複簡化或損壞
+             text = text.replace(/劉宇寧/g, '刘宇宁'); // 再次確保劉宇寧簡化
+
+             return text;
+        }
+
+
+        // --- Utility Functions (Must be defined before usage) ---
+
+        /**
+         * 顯示提示 (Toast)
+         */
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.textContent = message;
+            
+            // 重置 class
+            toast.className = 'toast';
+            
+            if (type === 'warning') {
+                toast.classList.add('toast-warning');
+                toast.querySelector('span:first-child').textContent = '⚠️';
+            } else if (type === 'error') {
+                toast.classList.add('toast-error');
+                toast.querySelector('span:first-child').textContent = '❌';
+            } else if (type === 'info') {
+                toast.classList.add('toast-info');
+                toast.querySelector('span:first-child').textContent = 'ℹ️';
+            } else {
+                toast.classList.add('toast-success');
+                toast.querySelector('span:first-child').textContent = '✅';
+            }
+            
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        /**
+         * 切换加载狀態
+         * @param {boolean} isLoading 
+         * @param {HTMLElement} btnElement - 被點擊的按鈕元素
+         * @param {number} count - 生成的文案數量 (1 或 5)
+         */
+        function setLoading(isLoading, btnElement, count) { 
+            const textSpan = btnElement.querySelector('span');
+            let loadingSpan = btnElement.querySelector('.loading-spinner');
+
+            if (!loadingSpan) {
+                // 如果 loadingSpan 不存在 (因為之前按鈕沒有，我們需要動態創建)
+                loadingSpan = document.createElement('span');
+                loadingSpan.className = 'loading-spinner';
+                loadingSpan.innerHTML = `
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    AI 正在生成 ${count} 組文案...
+                `;
+                btnElement.appendChild(loadingSpan);
+            } else {
+                // 更新 loading 文本
+                 loadingSpan.textContent = `AI 正在生成 ${count} 組文案...`;
+            }
+
+            btnElement.disabled = isLoading;
+            
+            if (isLoading) {
+                // 顯示 loading
+                textSpan.style.display = 'none';
+                loadingSpan.style.display = 'flex';
+                initialMessage.classList.add('hidden'); 
+            } else {
+                // 顯示文字
+                textSpan.style.display = 'flex';
+                loadingSpan.style.display = 'none';
+                if (resultsContainer.childElementCount === 0) {
+                     initialMessage.classList.remove('hidden');
+                     initialMessage.textContent = "所有文案已複製完畢！請重新生成批次。";
+                } else {
+                     initialMessage.classList.add('hidden');
+                }
+            }
+        }
+
+        /**
+         * 複製到剪貼板
+         * @param {string} text - 要複製的文字
+         */
+        function copyToClipboard(text) {
+             const tempTextarea = document.createElement('textarea');
+             tempTextarea.style.position = 'fixed';
+             tempTextarea.style.opacity = '0';
+             // 修正：確保簡體轉換後的內容被正確賦值
+             tempTextarea.value = text; 
+             document.body.appendChild(tempTextarea);
+             
+             // 嘗試選取和複製
+             try {
+                tempTextarea.select();
+                tempTextarea.setSelectionRange(0, 99999); // 適用於 iOS
+                document.execCommand('copy');
+                // 如果成功，不顯示錯誤 toast
+             } catch (err) {
+                 console.error('無法使用 execCommand 複製:', err);
+                 showToast('複製失敗，請手動複製。', 'error');
+             } finally {
+                document.body.removeChild(tempTextarea);
+             }
+        }
+
+        // --- Template Management Functions ---
+        // (已刪除不需要的模板編輯函式)
+
+        /**
+         * 選擇頂部的模板按鈕 (設定當前要使用的模板 ID 並顯示預覽)
+         */
+        function selectTemplate(num, element) { 
+            selectedTemplateId = String(num);
+            
+            // 視覺更新：更新按鈕的 active 狀態
+            document.querySelectorAll('.template-tabs .tab-btn').forEach(b => {
+                b.classList.remove('active');
+            });
+            element.classList.add('active'); 
+
+            // 顯示模板預覽摘要
+            const previewText = masterTemplates[selectedTemplateId].preview;
+            templatePreviewSummary.textContent = previewText;
+            
+            showToast(`已選擇 [模板 ${selectedTemplateId}]`, 'info');
+        }
+
+        /**
+         * 處理下拉選單變動 (此功能已被移除，保留的邏輯)
+         */
+        function selectTemplateDropdown(id) {
+            selectedTemplateId = id;
+            
+            // 顯示模板預覽摘要
+            const previewText = masterTemplates[selectedTemplateId].preview;
+            templatePreviewSummary.textContent = previewText;
+
+            showToast(`已選擇 [模板 ${selectedTemplateId}]`, 'info');
+        }
+        
+        /**
+         * 儲存設定到 localStorage
+         */
+        function saveSettings() {
+             localStorage.setItem('lyn_fan_id', personalIdInput.value);
+             localStorage.setItem('lyn_cr_checked', crWatermarkCheckbox.checked);
+        }
+
+        /**
+         * 從 localStorage 載入設定
+         */
+        function loadSettings() {
+            const savedId = localStorage.getItem('lyn_fan_id');
+            const savedCrChecked = localStorage.getItem('lyn_cr_checked');
+
+            if (savedId !== null) {
+                personalIdInput.value = savedId;
+            }
+            if (savedCrChecked !== null) {
+                crWatermarkCheckbox.checked = savedCrChecked === 'true';
+            }
+        }
+        
+        // --- Core Generation Functions ---
+
+        /**
+         * 批次生成 AI 古風文案
+         * @param {number} count - 生成的文案數量 (1 或 5)
+         * @param {HTMLElement} btnElement - 被點擊的按鈕元素
+         */
+        async function generateMultiple(count, btnElement) {
+            setLoading(true, btnElement, count); 
+            
+            const NUM_CARDS = count;
+            resultsContainer.innerHTML = ''; // 清空舊結果
+            
+            const currentTemplateContent = masterTemplates[selectedTemplateId].content;
+            const videoAction = videoSelect.value.trim(); // 獲取預設影片選擇動作
+            const customVideoLink = customVideoLinkInput.value.trim(); // NEW: 獲取自填連結
+
+            let specificVideoLink = (videoAction && videoAction !== 'RANDOM_ANY') ? videoAction : '';
+            // 檢查 CR 浮水印狀態
+            const shouldAddCR = crWatermarkCheckbox.checked;
+
+            
+            if (!currentTemplateContent || !currentTemplateContent.includes(QUOTE_PLACEHOLDER)) {
+                setLoading(false, btnElement, count);
+                resultsContainer.innerHTML = `<p class="text-center text-red-500 pt-4">❌ 模板錯誤！請確保模板中有 [AI_QUOTE] 佔位符。</p>`;
+                return;
+            }
+
+
+            const quotePromises = [];
+            const selectedStyle = styleSelect.value;
+            // 將選擇的風格傳遞給 AI 函數
+            for (let i = 0; i < NUM_CARDS; i++) {
+                quotePromises.push(fetchAiQuote(selectedStyle)); 
+            }
+
+            const results = await Promise.all(quotePromises);
+            
+            results.forEach((generatedQuote, index) => {
+                let finalVideoLink = '';
+
+                // 優先級邏輯：1. 自填連結 2. 隨機 3. 指定預設
+                if (customVideoLink) {
+                    finalVideoLink = customVideoLink;
+                } else if (videoAction === 'RANDOM_ANY') {
+                    finalVideoLink = getRandomVideoLink(); 
+                } else if (videoAction) {
+                    finalVideoLink = videoAction; 
+                }
+                
+                if (generatedQuote) {
+                    // 隨機選擇 Emoji 前綴
+                    const randomPrefix = getRandomEmojiPrefix();
+                    const aiQuoteWithSymbols = randomPrefix + generatedQuote + QUOTE_SUFFIX;
+                    
+                    // 從這裡開始，我們處理最終文案結構
+                    let finalCopy = currentTemplateContent.replace(QUOTE_PLACEHOLDER, aiQuoteWithSymbols);
+                    
+                    // 處理選填影片連結和最終換行
+                    if (finalVideoLink) {
+                        // 在整個模板內容的末尾加上 \n\n 和 finalVideoLink
+                        finalCopy += '\n\n' + finalVideoLink; // 確保有空白行
+                    }
+
+                    // 添加 CR 浮水印
+                    if (shouldAddCR) {
+                        finalCopy += CR_TEXT; 
+                    }
+                    
+                    renderCopyCard(finalCopy.trim(), index + 1);
+
+                } else {
+                    renderErrorCard(index + 1);
+                }
+            });
+
+            // 清空自填連結輸入框
+            customVideoLinkInput.value = '';
+            
+            setLoading(false, btnElement, count);
+            const successCount = results.filter(r => r !== null).length;
+            if (successCount === 0) {
+                 showToast(`AI 請求失敗，請檢查金鑰或網路。`, 'error');
+            } else {
+                showToast(`成功生成 ${successCount} 組文案！`, 'success');
+            }
+        }
+
+        /**
+         * 呼叫 AI API 獲取單一古風金句 (保證解析，不拒絕)
+         */
+        async function fetchAiQuote(selectedStyle) {
+        return new Promise(async (resolve) => {
+            const systemPrompt = "你是一位專精於不同風格寫作的頂級追星文案寫手。你的任務是嚴格根據提供的風格要求，為明星撰寫**一條**長度在 15 到 25 個漢字之間、富有感染力且適合社群媒體分享的句子。請勿加入任何額外的解釋、標點符號（除了必要的逗號/句號）或表情符號，只返回單一的句子。";
+            
+            const userQuery = `請為明星「${IDOL_NAME}」撰寫一條「${selectedStyle}」風格的追星讚美文案。`;
+
+            // 結構保持不變，後端會原封不動轉發給 Google
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+
+            const MAX_RETRIES = 3;
+            for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+                try {
+                    // 修改：不再需要 ?key=...，因為這是發給我們自己的 Server
+                    const response = await fetch(API_URL_BASE, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    // 處理後端回傳的錯誤
+                    if (!response.ok) {
+                        const errorData = await response.json();
+                        console.error('Server Error:', errorData);
+                        
+                        // 如果是 429 (Too Many Requests)，嘗試重試
+                        if (response.status === 429 && attempt < MAX_RETRIES - 1) {
+                            const delay = Math.pow(2, attempt) * 1000 + Math.random() * 500;
+                            await new Promise(r => setTimeout(r, delay));
+                            continue; 
+                        }
+                        return resolve(null); 
+                    }
+
+                    const result = await response.json();
+                    const generatedQuote = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                    
+                    if (generatedQuote) {
+                        resolve(generatedQuote.trim().replace(/^['"“「](.*)['"”」]$/, '$1'));
+                        return; 
+                    }
+                } catch (error) {
+                    console.error(`Fetch Error (嘗試 ${attempt + 1}):`, error);
+                     if (attempt < MAX_RETRIES - 1) {
+                        const delay = Math.pow(2, attempt) * 1000 + Math.random() * 500;
+                        await new Promise(r => setTimeout(r, delay));
+                        continue;
+                    }
+                }
+            }
+            resolve(null);
+        });
+    }
+
+        /**
+         * 渲染單一文案卡片
+         */
+        function renderCopyCard(content, index) {
+            const cardId = `card-${Date.now()}-${index}`;
+            const html = `
+                <div class="copy-card" id="${cardId}">
+                    <p class="text-sm text-gray-500 mb-2 font-bold">✨ 文案 #${index} - 基於模板 ${selectedTemplateId}</p>
+                    <pre class="whitespace-pre-wrap text-sm text-gray-800 bg-gray-50 p-3 rounded border border-gray-200 mb-3 max-h-48 overflow-y-auto">${toSimplified(content.trim())}</pre>
+                    <button class="w-full bg-orange-500 text-white hover:bg-orange-600 font-semibold py-2 px-4 rounded-xl transition-colors flex items-center justify-center" onclick="copyAndRemoveCard('${cardId}', this)">
+                        <i data-lucide="clipboard-check" class="w-4 h-4 mr-2"></i>
+                        複製完整文案 (並移除卡片)
+                    </button>
+                </div>
+            `;
+            resultsContainer.insertAdjacentHTML('beforeend', html);
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        }
+
+        /**
+         * 渲染錯誤卡片
+         */
+        function renderErrorCard(index) {
+             const html = `
+                <div class="copy-card bg-red-50 border-red-300">
+                    <p class="text-sm text-red-700 font-bold">❌ 文案 #${index} 生成失敗</p>
+                    <p class="text-xs text-red-500 mt-1">請檢查 AI 服務是否正常。</p>
+                </div>
+            `;
+            resultsContainer.insertAdjacentHTML('beforeend', html);
+        }
+
+        /**
+         * 複製內容並移除卡片
+         */
+        function copyAndRemoveCard(cardId, button) {
+            const card = document.getElementById(cardId);
+            const textToCopy = card.querySelector('pre').textContent;
+            
+            // 複製內容 (textToCopy 已經是簡體)
+            copyToClipboard(textToCopy);
+            
+            // 移除卡片
+            card.classList.add('fade-out');
+            button.disabled = true;
+            setTimeout(() => {
+                card.remove();
+                // 檢查是否所有卡片都已用完
+                if (resultsContainer.childElementCount === 0) {
+                     initialMessage.classList.remove('hidden');
+                     initialMessage.textContent = "所有文案已複製完畢！請重新生成批次。";
+                }
+            }, 500); 
+
+            // 提示訊息
+            showToast('✅ 完整文案已複製！', 'success');
+        }
+
+
+        // --- Other Functions ---
+
+        /**
+         * 複製評論模板 (已修改為結合個人 ID)
+         */
+        function copyComment() {
+            const personalId = personalIdInput.value.trim();
+            
+            if (!personalId) {
+                showToast('請輸入您的個人 ID！', 'warning');
+                return;
+            }
+            
+            // 複製前，先將基礎模板和 ID 組合，然後再進行簡體化
+            const combinedComment = COMMENT_TEMPLATE_BASE + personalId; 
+            const finalCommentSimplified = toSimplified(combinedComment);
+
+            copyToClipboard(finalCommentSimplified); // 複製簡體版
+            showToast('評論模板已複製！', 'success');
+        }
+
+        /**
+         * 儲存設定到 localStorage
+         */
+        function saveSettings() {
+             localStorage.setItem('lyn_fan_id', personalIdInput.value);
+             localStorage.setItem('lyn_cr_checked', crWatermarkCheckbox.checked);
+        }
+
+        /**
+         * 從 localStorage 載入設定
+         */
+        function loadSettings() {
+            const savedId = localStorage.getItem('lyn_fan_id');
+            const savedCrChecked = localStorage.getItem('lyn_cr_checked');
+
+            if (savedId !== null) {
+                personalIdInput.value = savedId;
+            }
+            if (savedCrChecked !== null) {
+                crWatermarkCheckbox.checked = savedCrChecked === 'true';
+            }
+        }
+
+        // --- Initialization ---
+
+        window.onload = function() {
+            // 在頁面加載時提取所有影片連結，建立影片庫
+            populateVideoPool();
+            // 載入儲存的設定
+            loadSettings();
+
+            // 1. 確保初始選中的模板按鈕有 active 樣式 (此版本使用按鈕)
+            const initialOption = document.querySelector(`#templateSelectDropdown option[value="${selectedTemplateId}"]`);
+            if (initialOption) {
+                 initialOption.selected = true;
+            }
+            
+            // 2. 顯示初始模板預覽
+            const initialPreview = masterTemplates[selectedTemplateId].preview;
+            templatePreviewSummary.textContent = initialPreview;
+            
+            // 3. 初始化折疊圖標和 Lucide 圖標
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        };
+    </script>
+</body>
+</html>
