@@ -461,7 +461,7 @@
         const COMMENT_TEMPLATE_BASE = "[打call]京东新銳代言人刘宇宁邀你加入11.11｜刘宇宁碧浪品牌代言人|神奇的闲鱼代言人刘宇宁｜刘宇宁海飛絲活力代言人 |刘宇宁純甄品牌代言人|劉宇寧小貝｜劉宇寧玫瑰叢生｜劉宇寧｜刘宇寧的2025巡演|刘宇寧的第二張專輯刘宇寧的|劉宇寧音樂緣計劃|OLAY身體護理品牌全線代言人刘宇寧➕ "; // 模板末尾加上 "➕ " 等待 ID 
 
         // 固定連結和提及區塊的內容 (方便複製)
-        const FIXED_LINKS = `http://t.cn/AXLbrX6k\nhttp://t.cn/AX2wIrjE\nhttp://t.cn/AX2YWB8S`;
+        const FIXED_LINKS = `http://t.cn/AXyZOhIe\nhttp://t.cn/AXL1ErDE\nhttp://t.cn/AX2wIrjE`;
         const MENTION_BLOCK = `@摩登兄弟刘宇寧 刘宇寧小貝｜刘宇寧玫瑰叢生 摩登兄弟劉宇寧｜劉宇寧｜寧哥｜lyn`;
 
 
@@ -470,18 +470,18 @@
         let masterTemplates = {
             1: {
                 // 結構: Hashtag -> AI -> 空行 -> 固定連結 -> 空行 -> 提及
-                content: `#OLAY身體護理品牌全線代言人刘宇寧# | #劉宇寧的2025巡演# | #摩登兄弟[超話]#\n\n${QUOTE_PLACEHOLDER}\n\n${FIXED_LINKS}\n\n${MENTION_BLOCK}`,
-                preview: 'OLAY 代言, 2025巡演, 摩登兄弟超話 (含3連結)'
+                content: `#OLAY身体护理品牌全线代言人刘宇宁# | #刘宇宁京东新锐代言人# | #摩登兄弟[超话]#\n\n${QUOTE_PLACEHOLDER}\n\n${FIXED_LINKS}\n\n${MENTION_BLOCK}`,
+                preview: 'OLAY身体护理品牌全线代言人刘宇宁 (含3連結)'
             },
             2: {
                 // 結構: Hashtag -> AI -> 空行 -> 固定連結 -> 空行 -> 提及 (所有模板都必須包含固定連結)
-                content: `#劉宇寧音樂緣計劃# | #神奇的闲鱼代言人刘宇寧# | #摩登兄弟[超話]#\n\n${QUOTE_PLACEHOLDER}\n\n${FIXED_LINKS}\n\n${MENTION_BLOCK}`,
-                preview: '音樂緣計劃, 閒魚代言, 摩登兄弟超話 (含3連結)'
+                content: `#刘宇宁尖叫男演员# | #神奇的闲鱼代言人刘宇宁# | #摩登兄弟[超话]#\n\n${QUOTE_PLACEHOLDER}\n\n${FIXED_LINKS}\n\n${MENTION_BLOCK}`,
+                preview: '刘宇宁尖叫男演员'
             },
             3: {
                 // 結構: Hashtag -> AI -> 空行 -> 固定連結 -> 空行 -> 提及 (以新歌主題為 Hashtag)
-                content: `#劉宇寧新歌若沒有你# | #腾讯音乐由你榜# | #摩登兄弟[超話]#\n\n${QUOTE_PLACEHOLDER}\n\n${FIXED_LINKS}\n\n@摩登兄弟刘宇寧 刘宇寧小貝｜刘宇寧玫瑰叢生 摩登兄弟劉宇寧｜劉宇寧｜寧哥｜lyn`,
-                preview: '新歌榜單, 騰訊音樂由你榜, 摩登兄弟超話 (含3連結)'
+                content: `#刘宇宁新歌有去无回# | #腾讯音乐由你榜# | #摩登兄弟[超话]# \n\n${QUOTE_PLACEHOLDER}\n\n${FIXED_LINKS}\n\n@摩登兄弟刘宇寧 刘宇寧小貝｜刘宇寧玫瑰叢生 摩登兄弟劉宇寧｜劉宇寧｜寧哥｜lyn`,
+                preview: '刘宇宁新歌有去无回'
             }
         };
         
@@ -1018,4 +1018,5 @@
 </body>
 
 </html>
+
 
