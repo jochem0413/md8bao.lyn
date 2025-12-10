@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>劉宇寧誇誇團文案產生器 🌻</title>
+    <title>🌻</title>
     <!-- 引入 Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
     <!-- 引入 Lucide Icons for aesthetic icons --><script type="module" src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
@@ -126,10 +126,7 @@
     <div class="container w-full max-w-4xl bg-white rounded-2xl shadow-xl border border-gray-100">
         <div class="header bg-gradient-to-r from-yellow-400 to-orange-500 text-white p-8 rounded-t-2xl text-center">
             <h1 class="text-3xl sm:text-4xl font-extrabold tracking-wide mb-2 flex items-center justify-center">
-                <i data-lucide="sun" class="w-7 h-7 mr-3"></i> 劉宇寧誇誇團文案產生器 🌻
-            </h1>
-            <p class="text-sm opacity-90">作者 by 小八寶粥 | 僅供摩飯使用｜有問題可聯絡 ig: md.8bao</p>
-            <p class="text-xs opacity-70 mt-1">版本號：v2.5 (2025.11.24 更新)</p>
+                <i data-lucide="sun" class="w-7 h-7 mr-3"></i> 🌻
         </div>
 
         <div class="content p-6 sm:p-8">
@@ -180,7 +177,7 @@
                             <label for="templateSelectDropdown" class="block mb-2 text-gray-600 text-sm font-semibold">
                                 選擇貼文模板 (Hashtag/提及/連結)：
                             </label>
-                            <!-- 恢復下拉選單 --><select id="templateSelectDropdown" onchange="selectTemplateDropdown(this.value)" 
+                          <!-- 恢復下拉選單 --><select id="templateSelectDropdown" onchange="selectTemplateDropdown(this.value)" 
                                     class="w-full p-3 border border-yellow-500 rounded-lg focus:ring-2 focus:ring-yellow-500 transition-colors bg-white shadow-sm font-semibold">
                                 <!-- 模板選項，data-preview 包含摘要資訊 --><option value="1" data-preview="OLAY 代言, 2025巡演, 摩登兄弟超話 (含3連結)">模板 1 (OLAY/巡演)</option>
                                 <option value="2" data-preview="音樂緣計劃, 閒魚代言, 摩登兄弟超話 (含3連結)">模板 2 (音樂/閒魚)</option>
@@ -205,173 +202,194 @@
                                     🎬 選填影片連結
                                 </label>
                                 <select id="videoSelect" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-colors">
-                                    <option value="" selected>❌ 無影片 (僅文案)</option>
-                                    <option value="RANDOM_ANY">🎲 隨機選擇一條影片 (每卡不同)</option>
-                                    <!-- 完整的預設視頻連結清單 --><optgroup label="━━━ 🆕 最新視頻 ━━━">
-                                        <option value="http://t.cn/AXLzjlVh">🔥🔥最新播放量1</option>
-                                        <option value="http://tcn/AXLz8d3b">🔥🔥最新播放量2</option>
-                                        <option value="http://tcn/AX2DHuN9">与寧一起做"真話擔當"</option>
-                                        <option value="http://tcn/AXAWueo2">刘宇宁碧浪品牌帶言了新福利</option>
-                                        <option value="http://t.cn/AXLzjlVh">🔥🔥最新播放量1</option>
-                                        <option value="http://tcn/AXLz8d3b">🔥🔥最新播放量2</option>
-                                        <option value="http://tcn/AX2DHuN9">与宁一起做"真话担当"</option>
-                                        <option value="http://tcn/AXAWueo2">刘宇宁碧浪品牌带言了新福利</option>
-                                        <option value="http://tcn/AX2Hav4j">🔥提高播放量1</option>
-                                        <option value="http://tcn/AX2Y8IEM">🔥提高播放量2</option>
-                                        <option value="http://tcn/AX2YM0pO">🔥提高播放量3</option>
-                                        <option value="http://tcn/AX2jdnva">🔥提高播放量4</option>
-                                        <option value="http://tcn/AX2HQ4qo">🔥提高播放量5</option>
-                                        <option value="http://tcn/AX2HqT7s">🔥提高播放量6</option>
-                                        <option value="http://tcn/AX2YfeEp">🔥提高播放量7</option>
-                                        <option value="http://tcn/AX2ilbMN">🔥提高播放量8</option>
-                                        <option value="http://tcn/AX2icZqE">🔥提高播放量9</option>
-                                        <option value="http://tcn/AX2VzXH8">🔥提高播放量10</option>
-                                        <option value="http://tcn/AXAFVCJG">最新视频11.9-1</option>
-                                        <option value="http://tcn/AXAF4J3O">最新视频11.9-2</option>
-                                        <option value="http://tcn/AXAkH2Bt">最新视频11.9-3</option>
-                                        <option value="http://tcn/AX24Ozxm">最新视频11.9-4</option>
-                                        <option value="http://tcn/AX2ArD3w">最新视频11.9-5</option>
-                                        <option value="http://tcn/AXAFTVDN">最新视频11.9-6</option>
-                                        <option value="http://tcn/AX2yRsJX">最新视频11.9-7</option>
-                                        <option value="http://tcn/AX2y8gX4">最新视频11.9-8</option>
-                                        <option value="http://tcn/AX2whxdk">和刘宇宁一起来京东11.11</option>
-                                        <option value="http://tcn/AXAMheQ5">最新视频1</option>
-                                        <option value="http://tcn/AXAVbRat">最新视频2</option>
-                                        <option value="http://tcn/AXAVEaJu">最新视频3</option>
-                                        <option value="http://tcn/AXAtrYEM">最新视频4</option>
-                                        <option value="http://tcn/AXAlIp4n">最新视频5</option>
-                                        <option value="http://tcn/AXAWrhDh">最新视频6</option>
-                                        <option value="http://tcn/AXAOVvNu">最新视频7</option>
-                                        <option value="http://tcn/AXA0RfPp">最新视频8</option>
-                                        <option value="http://tcn/AXAOv00C">最新视频9</option>
-                                        <option value="http://tcn/AXA0uua9">最新视频10</option>
-                                        <option value="http://tcn/AXAIQHUw">刘宇宁送你大大大大福利</option>
-                                        <option value="http://tcn/AXAG3KDo">刘宇宁的双11剧场</option>
-                                        <option value="http://tcn/AXAZ31CE">刘宇宁OLAY身体护理品牌全线代言人</option>
-                                        <option value="http://tcn/AXwpu3NZ">刘宇宁守护大家的暖绒绒时刻</option>
-                                        <option value="http://tcn/AXAZX3q4">刘宇宁点亮神奇灯牌</option>
-                                        <option value="http://tcn/AXACmJm6">刘宇宁专属心动大屏飞艇</option>
+                                    <option value="">❌ 無影片 (僅文案)</option>
+                                    <option value="RANDOM_ANY" selected >🎲 隨機選擇一條影片 (每卡不同)</option>
+                                    <!-- 完整的預設視頻連結清單 -->
+                                          <optgroup label="━━━ 🆕 12/1 新增 ━━━">
+                                        <option value="http://t.cn/AXLgfqpG">刘宇宁 《我的天空》直拍12.1</option>
+                                        <option value="http://t.cn/AXL1PhiU">刘宇宁 《你给我听好》12.1</option>
+                                        <option value="http://t.cn/AXL1MX4b">刘宇宁 《寂寞的季节》12.1</option>
+                                        <option value="http://t.cn/AXLupeE5">刘宇宁 直播精華：火鍋底料12.1</option>
+                                        <option value="http://t.cn/AXLYXzRL">刘宇宁 「寧」的排練TV 12.1</option>
+                                        <option value="http://t.cn/AXLdg7p6">刘宇宁 在演唱會上唱了《奢香夫人》12.1</option>
                                     </optgroup>
+                                    <optgroup label="━━━ 🆕 11/27 新增 ━━━">
+                                        <option value="http://t.cn/AXLp8nCi">刘宇宁 《心念》11.27</option>
+                                        <option value="http://t.cn/AXLWbXPS">刘宇宁 《别来无恙》11.25</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 6️⃣ 音乐缘计划2 ━━━">
+                                        <option value="http://t.cn/AXLbkrtn">刘宇宁 《告别旅行》舞台11.21</option>
+                                        <option value="http://t.cn/AXLGMy0J">刘宇宁 《告别旅行》直拍11.21</option>
+                                        <option value="http://t.cn/AXLGPXkF">刘宇宁选歌最有悬念的一集11.21</option>
+                                        <option value="http://t.cn/AXLGymUe">刘宇宁把未完的故事唱成篇章11.21</option>
+                                        <option value="http://t.cn/AX2HqT7s">刘宇宁《把你的名字念一万遍》11.15</option>
+                                    </optgroup>
+                                    <optgroup label="━━━ 7️⃣ 万两 ━━━">
+                                        <option value="http://t.cn/AXLiqKRP">刘宇宁万两MV11.24</option>
+                                    </optgroup>
+                                    <option value="http://t.cn/AXLzjlVh">🔥🔥最新播放量1</option>
+                                    <option value="http://t.cn/AXLz8d3b">🔥🔥最新播放量2</option>
+                                    <option value="http://t.cn/AX2DHuN9">与寧一起做"真話擔當"</option>
+                                    <option value="http://t.cn/AXAWueo2">刘宇宁碧浪品牌帶言了新福利</option>
+                                    <option value="http://t.cn/AXLzjlVh">🔥🔥最新播放量1</option>
+                                    <option value="http://t.cn/AXLz8d3b">🔥🔥最新播放量2</option>
+                                    <option value="http://t.cn/AX2DHuN9">与宁一起做"真话担当"</option>
+                                    <option value="http://t.cn/AXAWueo2">刘宇宁碧浪品牌带言了新福利</option>
+                                    <option value="http://t.cn/AX2Hav4j">🔥提高播放量1</option>
+                                    <option value="http://t.cn/AX2Y8IEM">🔥提高播放量2</option>
+                                    <option value="http://t.cn/AX2YM0pO">🔥提高播放量3</option>
+                                    <option value="http://t.cn/AX2jdnva">🔥提高播放量4</option>
+                                    <option value="http://t.cn/AX2HQ4qo">🔥提高播放量5</option>
+                                    <option value="http://t.cn/AX2HqT7s">🔥提高播放量6</option>
+                                    <option value="http://t.cn/AX2YfeEp">🔥提高播放量7</option>
+                                    <option value="http://t.cn/AX2ilbMN">🔥提高播放量8</option>
+                                    <option value="http://t.cn/AX2icZqE">🔥提高播放量9</option>
+                                    <option value="http://t.cn/AX2VzXH8">🔥提高播放量10</option>
+                                    <option value="http://t.cn/AXAFVCJG">最新视频11.9-1</option>
+                                    <option value="http://t.cn/AXAF4J3O">最新视频11.9-2</option>
+                                    <option value="http://t.cn/AXAkH2Bt">最新视频11.9-3</option>
+                                    <option value="http://t.cn/AX24Ozxm">最新视频11.9-4</option>
+                                    <option value="http://t.cn/AX2ArD3w">最新视频11.9-5</option>
+                                    <option value="http://t.cn/AXAFTVDN">最新视频11.9-6</option>
+                                    <option value="http://t.cn/AX2yRsJX">最新视频11.9-7</option>
+                                    <option value="http://t.cn/AX2y8gX4">最新视频11.9-8</option>
+                                    <option value="http://t.cn/AX2whxdk">和刘宇宁一起来京东11.11</option>
+                                    <option value="http://t.cn/AXAMheQ5">最新视频1</option>
+                                    <option value="http://t.cn/AXAVbRat">最新视频2</option>
+                                    <option value="http://t.cn/AXAVEaJu">最新视频3</option>
+                                    <option value="http://t.cn/AXAtrYEM">最新视频4</option>
+                                    <option value="http://t.cn/AXAlIp4n">最新视频5</option>
+                                    <option value="http://t.cn/AXAWrhDh">最新视频6</option>
+                                    <option value="http://t.cn/AXAOVvNu">最新视频7</option>
+                                    <option value="http://t.cn/AXA0RfPp">最新视频8</option>
+                                    <option value="http://t.cn/AXAOv00C">最新视频9</option>
+                                    <option value="http://t.cn/AXA0uua9">最新视频10</option>
+                                    <option value="http://t.cn/AXAIQHUw">刘宇宁送你大大大大福利</option>
+                                    <option value="http://t.cn/AXAG3KDo">刘宇宁的双11剧场</option>
+                                    <option value="http://t.cn/AXAZ31CE">刘宇宁OLAY身体护理品牌全线代言人</option>
+                                    <option value="http://t.cn/AXwpu3NZ">刘宇宁守护大家的暖绒绒时刻</option>
+                                    <option value="http://t.cn/AXAZX3q4">刘宇宁点亮神奇灯牌</option>
+                                    <option value="http://t.cn/AXACmJm6">刘宇宁专属心动大屏飞艇</option>
                                     <optgroup label="━━━ 1️⃣ 京東新銳代言人 ━━━">
-                                        <option value="http://tcn/AXzTY6lb">刘宇宁腿长超1.1米10.14</option>
-                                        <option value="http://tcn/AXzT5bGd">11.11加入刘宇宁的电玩宇宙10.14</option>
+                                        <option value="http://t.cn/AXzTY6lb">刘宇宁腿长超1.1米10.14</option>
+                                        <option value="http://t.cn/AXzT5bGd">11.11加入刘宇宁的电玩宇宙10.14</option>
                                     </optgroup>
                                     <optgroup label="━━━ 2️⃣ 碧浪品牌代言人 ━━━">
-                                        <option value="http://tcn/AXwpu3NZ">刘宇宁守护大家的暖绒绒时刻10.24</option>
-                                        <option value="http://tcn/AXw0vWjc">和他碧浪一起守护你的暖绒绒10.23</option>
+                                        <option value="http://t.cn/AXwpu3NZ">刘宇宁守护大家的暖绒绒时刻10.24</option>
+                                        <option value="http://t.cn/AXw0vWjc">和他碧浪一起守护你的暖绒绒10.23</option>
                                     </optgroup>
                                     <optgroup label="━━━ 3️⃣ 神奇的闲鱼代言人 ━━━">
-                                        <option value="http://tcn/AXAZX3q4">刘宇宁点亮神奇灯牌10.29</option>
-                                        <option value="http://tcn/AXw9nGk8">和代言人刘宇宁一起先上闲鱼10.22</option>
+                                        <option value="http://t.cn/AXAZX3q4">刘宇宁点亮神奇灯牌10.29</option>
+                                        <option value="http://t.cn/AXw9nGk8">和代言人刘宇宁一起先上闲鱼10.22</option>
                                     </optgroup>
                                     <optgroup label="━━━ 4️⃣ 2025美好奇妙夜 ━━━">
-                                        <option value="http://tcn/AXA2WPVR">刘宇宁合唱《侠客情》10.29</option>
-                                        <option value="http://tcn/AXAL7JB2">刘宇宁《奉上》10.29</option>
-                                        <option value="http://tcn/AXALP9Eb">刘宇宁《爱江山更爱美人》直拍10.29</option>
-                                        <option value="http://tcn/AXwsdpbl">刘宇宁伴着金曲找寻美好记忆10.28</option>
-                                        <option value="http://tcn/AXwiwOyI">刘宇宁2025美好奇妙夜阵容10.21</option>
+                                        <option value="http://t.cn/AXA2WPVR">刘宇宁合唱《侠客情》10.29</option>
+                                        <option value="http://t.cn/AXAL7JB2">刘宇宁《奉上》10.29</option>
+                                        <option value="http://t.cn/AXALP9Eb">刘宇宁《爱江山更爱美人》直拍10.29</option>
+                                        <option value="http://t.cn/AXwsdpbl">刘宇宁伴着金曲找寻美好记忆10.28</option>
+                                        <option value="http://t.cn/AXwiwOyI">刘宇宁2025美好奇妙夜阵容10.21</option>
                                     </optgroup>
                                     <optgroup label="━━━ 5️⃣ 音乐緣計劃2 ━━━">
-                                        <option value="http://tcn/AXAZqU5U">刘宇宁超有愛的爆笑互动日常10.29</option>
-                                        <option value="http://tcn/AXwEDrHX">刘宇宁故作"破音"状接梗10.25</option>
-                                        <option value="http://tcn/AXwEo3vl">刘宇宁到底有多香10.25</option>
-                                        <option value="http://tcn/AXwRhdwe">刘宇宁音乐缘计划第二季抢先10.25</option>
-                                        <option value="http://tcn/AXwQWqKm">刘宇宁《自诩周全》舞台10.24</option>
-                                        <option value="http://tcn/AXwT1Irc">刘宇宁一开口对味了10.24</option>
-                                        <option value="http://tcn/AXwjkr8u">刘宇宁已做好准备10.24</option>
-                                        <option value="http://tcn/AXw0MF4O">刘宇宁画風怎么和别人不一样10.23</option>
-                                        <option value="http://tcn/AXwo17Py">刘宇宁化身"导师"10.22</option>
-                                        <option value="http://tcn/AXwCtWZv">刘宇宁音乐缘计划第二季抢先10.22</option>
-                                        <option value="http://tcn/AXwVEw6a">刘宇宁心中"音乐理想型"10.20</option>
-                                        <option value="http://tcn/AXwVIgqa">刘宇宁音乐缘计划第二季抢先10.20</option>
-                                        <option value="http://tcn/AXwwkHn9">刘宇宁真摸到音综天花板了10.17</option>
-                                        <option value="http://tcn/AXw7UeM5">刘宇宁实力唱功诠释原创态度10.17</option>
-                                        <option value="http://tcn/AXww6KC5">刘宇宁机智应对10.17</option>
-                                        <option value="http://tcn/AXw7IcfN">刘宇宁为为快乐相聚10.17</option>
+                                        <option value="http://t.cn/AXAZqU5U">刘宇宁超有愛的爆笑互动日常10.29</option>
+                                        <option value="http://t.cn/AXwEDrHX">刘宇宁故作"破音"状接梗10.25</option>
+                                        <option value="http://t.cn/AXwEo3vl">刘宇宁到底有多香10.25</option>
+                                        <option value="http://t.cn/AXwRhdwe">刘宇宁音乐缘计划第二季抢先10.25</option>
+                                        <option value="http://t.cn/AXwQWqKm">刘宇宁《自诩周全》舞台10.24</option>
+                                        <option value="http://t.cn/AXwT1Irc">刘宇宁一开口对味了10.24</option>
+                                        <option value="http://t.cn/AXwjkr8u">刘宇宁已做好准备10.24</option>
+                                        <option value="http://t.cn/AXw0MF4O">刘宇宁画風怎么和别人不一样10.23</option>
+                                        <option value="http://t.cn/AXwo17Py">刘宇宁化身"导师"10.22</option>
+                                        <option value="http://t.cn/AXwCtWZv">刘宇宁音乐缘计划第二季抢先10.22</option>
+                                        <option value="http://t.cn/AXwVEw6a">刘宇宁心中"音乐理想型"10.20</option>
+                                        <option value="http://t.cn/AXwVIgqa">刘宇宁音乐缘计划第二季抢先10.20</option>
+                                        <option value="http://t.cn/AXwwkHn9">刘宇宁真摸到音综天花板了10.17</option>
+                                        <option value="http://t.cn/AXw7UeM5">刘宇宁实力唱功诠释原创态度10.17</option>
+                                        <option value="http://t.cn/AXww6KC5">刘宇宁机智应对10.17</option>
+                                        <option value="http://t.cn/AXw7IcfN">刘宇宁为为快乐相聚10.17</option>
                                     </optgroup>
                                     <optgroup label="━━━ 6️⃣ 万劍不改 ━━━">
-                                        <option value="http://tcn/AXwQhlAo">刘宇宁《万劍不改》MV10.28</option>
-                                        <option value="http://tcn/AXwbD2VU">刘宇宁天地劍心OST超長试听10.19</option>
+                                        <option value="http://t.cn/AXwQhlAo">刘宇宁《万劍不改》MV10.28</option>
+                                        <option value="http://t.cn/AXwbD2VU">刘宇宁天地劍心OST超長试听10.19</option>
                                     </optgroup>
                                     <optgroup label="━━━ 7️⃣ 微博视界大会 ━━━">
-                                        <option value="http://tcn/AXwgknav">刘宇宁很久没有为誰折腰了10.27</option>
-                                        <option value="http://tcn/AXzxtkT8">刘宇宁打戲天花板10.10</option>
+                                        <option value="http://t.cn/AXwgknav">刘宇宁很久没有为誰折腰了10.27</option>
+                                        <option value="http://t.cn/AXzxtkT8">刘宇宁打戲天花板10.10</option>
                                     </optgroup>
-                                    <optgroup label="━━━ 8️⃣ 玫瑰丛生 ━━━">
-                                        <option value="http://tcn/AXwgbZ3H">刘宇宁鹅厂2026大剧片单10.27</option>
+                                    <optgroup label="━━━ 8️⃣ 玫瑰叢生 ━━━">
+                                        <option value="http://t.cn/AXwgbZ3H">刘宇宁鹅厂2026大剧片单10.27</option>
                                     </optgroup>
                                     <optgroup label="━━━ 9️⃣ 地球超新鲜 ━━━">
-                                        <option value="http://tcn/AXwDoxvm">刘宇宁鹅厂2026综艺片单10.27</option>
-                                        <option value="http://tcn/AXz9PoGT">刘宇宁地球超新鲜庆功宴10.12</option>
-                                        <option value="http://tcn/AXzCazWy">刘宇宁想和开推朋友一起旅行10.12</option>
-                                        <option value="http://tcn/AXz4jQfX">刘宇宁地球团抽象特效瞬间10.8</option>
-                                        <option value="http://tcn/AXzAxL0s">刘宇宁地球团人均"大厨"10.7</option>
-                                        <option value="http://tcn/AX7gD9D7">刘宇宁清唱《好久不见》10.5</option>
-                                        <option value="http://tcn/AX7ggpcl">刘宇宁自己蛐蛐自己10.5</option>
-                                        <option value="http://tcn/AX7ge70h">刘宇宁烤茄子全场欢呼10.5</option>
-                                        <option value="http://tcn/AX7kvIiX">刘宇宁地球团玩转粤语10.5</option>
-                                        <option value="http://tcn/AX7ROCGf">刘宇宁地球团的大型干杯现场10.3</option>
-                                        <option value="http://tcn/AX7nRA8P">刘宇宁地球团的经典名场面10.3</option>
-                                        <option value="http://tcn/AX7HlCrY">刘宇宁地球团的大型"拍一拍"10.2</option>
-                                        <option value="http://tcn/AX70DSad">刘宇宁的"大展厨艺之旅"10.1</option>
-                                        <option value="http://tcn/AX70PGXC">刘宇宁吃播真的太香了10.1</option>
-                                        <option value="http://tcn/AX70XjIu">刘宇宁地球超新鲜美食篇10.1</option>
+                                        <option value="http://t.cn/AXwDoxvm">刘宇宁鹅厂2026综艺片单10.27</option>
+                                        <option value="http://t.cn/AXz9PoGT">刘宇宁地球超新鲜庆功宴10.12</option>
+                                        <option value="http://t.cn/AXzCazWy">刘宇宁想和开推朋友一起旅行10.12</option>
+                                        <option value="http://t.cn/AXz4jQfX">刘宇宁地球团抽象特效瞬间10.8</option>
+                                        <option value="http://t.cn/AXzAxL0s">刘宇宁地球团人均"大厨"10.7</option>
+                                        <option value="http://t.cn/AX7gD9D7">刘宇宁清唱《好久不见》10.5</option>
+                                        <option value="http://t.cn/AX7ggpcl">刘宇宁自己蛐蛐自己10.5</option>
+                                        <option value="http://t.cn/AX7ge70h">刘宇宁烤茄子全场欢呼10.5</option>
+                                        <option value="http://t.cn/AX7kvIiX">刘宇宁地球团玩转粤语10.5</option>
+                                        <option value="http://t.cn/AX7ROCGf">刘宇宁地球团的大型干杯现场10.3</option>
+                                        <option value="http://t.cn/AX7nRA8P">刘宇宁地球团的经典名场面10.3</option>
+                                        <option value="http://t.cn/AX7HlCrY">刘宇宁地球团的大型"拍一拍"10.2</option>
+                                        <option value="http://t.cn/AX70DSad">刘宇宁的"大展厨艺之旅"10.1</option>
+                                        <option value="http://t.cn/AX70PGXC">刘宇宁吃播真的太香了10.1</option>
+                                        <option value="http://t.cn/AX70XjIu">刘宇宁地球超新鲜美食篇10.1</option>
                                     </optgroup>
                                     <optgroup label="━━━ 🔟 开始推理吧4 ━━━">
-                                        <option value="http://tcn/AXwgzOAx">刘宇宁开始推理吧4主角团10.27</option>
+                                        <option value="http://t.cn/AXwgzOAx">刘宇宁开始推理吧4主角团10.27</option>
                                     </optgroup>
                                     <optgroup label="━━━ 1️⃣1️⃣ 王者荣耀共创之夜 ━━━">
-                                        <option value="http://tcn/AXwrnI2N">刘宇宁王者峡谷爱情保安10.26</option>
-                                        <option value="http://tcn/AXwofcNo">刘宇宁相約王者荣耀共创之夜10.22</option>
+                                        <option value="http://t.cn/AXwrnI2N">刘宇宁王者峡谷爱情保安10.26</option>
+                                        <option value="http://t.cn/AXwofcNo">刘宇宁相約王者荣耀共创之夜10.22</option>
                                     </optgroup>
                                     <optgroup label="━━━ 1️⃣2️⃣ 不沐春风不遇你 ━━━">
-                                        <option value="http://tcn/AXwoqHpo">刘宇宁《不沐春风不遇你》MV10.22</option>
-                                        <option value="http://tcn/AXw7wPIa">刘宇宁水龙吟OST阵容官宣10.17</option>
+                                        <option value="http://t.cn/AXwoqHpo">刘宇宁《不沐春风不遇你》MV10.22</option>
+                                        <option value="http://t.cn/AXw7wPIa">刘宇宁水龙吟OST阵容官宣10.17</option>
                                     </optgroup>
                                     <optgroup label="━━━ 1️⃣3️⃣ 不忘 ━━━">
-                                        <option value="http://tcn/AXwo177x">刘宇宁《不忘》MV10.22</option>
+                                        <option value="http://t.cn/AXwo177x">刘宇宁《不忘》MV10.22</option>
                                     </optgroup>
                                     <optgroup label="━━━ 1️⃣4️⃣ 1111惊喜之夜 ━━━">
-                                        <option value="http://tcn/AXwVGxsZ">刘宇宁东方卫视1111惊喜之夜10.20</option>
+                                        <option value="http://t.cn/AXwVGxsZ">刘宇宁东方卫视1111惊喜之夜10.20</option>
                                     </optgroup>
                                     <optgroup label="━━━ 1️⃣5️⃣ 毒酒 ━━━">
-                                        <option value="http://tcn/AXzZj1iG">入青云刘宇宁毒酒MV10.7</option>
-                                        <option value="http://tcn/AX7g89KA">刘宇宁入青云OST阵容试听版10.5</option>
+                                        <option value="http://t.cn/AXzZj1iG">入青云刘宇宁毒酒MV10.7</option>
+                                        <option value="http://t.cn/AX7g89KA">刘宇宁入青云OST阵容试听版10.5</option>
                                     </optgroup>
                                     <optgroup label="━━━ 1️⃣6️⃣ 我愛你中國 ━━━">
-                                        <option value="http://tcn/AX7N0TXX">刘宇宁合唱《我爱你中国》MV10.1</option>
+                                        <option value="http://t.cn/AX7N0TXX">刘宇宁合唱《我爱你中国》MV10.1</option>
                                     </optgroup>
                                     <optgroup label="━━━ 1️⃣7️⃣ 東方風雲榜 ━━━">
-                                        <option value="http://tcn/AX7oWOI7">刘宇宁上海演唱会梅奔9.30</option>
+                                        <option value="http://t.cn/AX7oWOI7">刘宇宁上海演唱会梅奔9.30</option>
                                     </optgroup>
                                     <optgroup label="━━━ 1️⃣8️⃣ 用歌聲各地文旅 ━━━">
-                                        <option value="http://tcn/AXzQXB7D">刘宇宁歌声内蒙古锡盟草原10.14</option>
-                                        <option value="http://tcn/AXzJJRQ1">刘宇宁歌声钱塘江四潮合一10.10</option>
-                                        <option value="http://tcn/AXzblSh8">刘宇宁歌声辽宁丹东天桥沟10.8</option>
-                                        <option value="http://tcn/AXzAj58n">刘宇宁歌声内蒙古海拉尔10.7</option>
-                                        <option value="http://tcn/AX7rIobU">和刘宇宁一起感受故宫魅力10.4</option>
-                                        <option value="http://tcn/AX7O2Etp">刘宇宁歌声阿尔山秋日画卷10.1</option>
+                                        <option value="http://t.cn/AXzQXB7D">刘宇宁歌声内蒙古锡盟草原10.14</option>
+                                        <option value="http://t.cn/AXzJJRQ1">刘宇宁歌声钱塘江四潮合一10.10</option>
+                                        <option value="http://t.cn/AXzblSh8">刘宇宁歌声辽宁丹东天桥沟10.8</option>
+                                        <option value="http://t.cn/AXzAj58n">刘宇宁歌声内蒙古海拉尔10.7</option>
+                                        <option value="http://t.cn/AX7rIobU">和刘宇宁一起感受故宫魅力10.4</option>
+                                        <option value="http://t.cn/AX7O2Etp">刘宇宁歌声阿尔山秋日画卷10.1</option>
                                     </optgroup>
                                     <optgroup label="━━━ 1️⃣9️⃣ 直播+行程+微博視頻 ━━━">
-                                        <option value="http://tcn/AXwgc1hH">刘宇宁正在解锁中10.27</option>
-                                        <option value="http://tcn/AXwdv3qM">刘宇宁《烟火星辰》直拍10.26</option>
-                                        <option value="http://tcn/AXwnY04w">刘宇宁跨越山海万里乘风10.25</option>
-                                        <option value="http://tcn/AXwnJmv4">刘宇宁西安演唱会10.25</option>
-                                        <option value="http://tcn/AXwQBoJD">刘宇宁宁与「音缘」有个约会10.24</option>
-                                        <option value="http://tcn/AXwQHq0V">刘宇宁《自诩周全》彩排直拍10.24</option>
-                                        <option value="http://tcn/AXwQAQdd">刘宇宁的2025巡演西安站10.24</option>
-                                        <option value="http://tcn/AXwjBMoY">刘宇宁上海站《恋语1910》10.24</option>
-                                        <option value="http://tcn/AXwYcXqb">刘宇宁上海站《友情岁月》10.24</option>
-                                        <option value="http://tcn/AXwMW3S3">刘宇宁直播10.20</option>
-                                        <option value="http://tcn/AXwVWbtW">刘宇宁宁在干横么10.20</option>
-                                        <option value="http://tcn/AXwGybpF">刘宇宁《伤心的人都在跳舞》10.19</option>
-                                        <option value="http://tcn/AXzTn1aS">刘宇宁的2025巡演西安站10.14</option>
-                                        <option value="http://tcn/AXza6LiW">刘宇宁上海站《奇妙的惊喜》10.11</option>
-                                        <option value="http://tcn/AXzAKJXR">刘宇宁直播10.7</option>
-                                        <option value="http://tcn/AXzvfDNV">刘宇宁呆米特派员"圆圆"花絮10.6</option>
-                                        <option value="http://tcn/AX7kvMFY">刘宇宁上海站合唱《提到了你》10.5</option>
-                                        <option value="http://tcn/AX7B1Qsg">刘宇宁的2025巡演时空交错10.4</option>
-                                        <option value="http://tcn/AX7Ty0uI">呆米特派员亲自拍摄的舞蹈花絮10.2</option>
+                                        <option value="http://t.cn/AXwgc1hH">刘宇宁正在解锁中10.27</option>
+                                        <option value="http://t.cn/AXwdv3qM">刘宇宁《烟火星辰》直拍10.26</option>
+                                        <option value="http://t.cn/AXwnY04w">刘宇宁跨越山海万里乘风10.25</option>
+                                        <option value="http://t.cn/AXwnJmv4">刘宇宁西安演唱会10.25</option>
+                                        <option value="http://t.cn/AXwQBoJD">刘宇宁宁与「音缘」有个约会10.24</option>
+                                        <option value="http://t.cn/AXwQHq0V">刘宇宁《自诩周全》彩排直拍10.24</option>
+                                        <option value="http://t.cn/AXwQAQdd">刘宇宁的2025巡演西安站10.24</option>
+                                        <option value="http://t.cn/AXwjBMoY">刘宇宁上海站《恋语1910》10.24</option>
+                                        <option value="http://t.cn/AXwYcXqb">刘宇宁上海站《友情岁月》10.24</option>
+                                        <option value="http://t.cn/AXwMW3S3">刘宇宁直播10.20</option>
+                                        <option value="http://t.cn/AXwVWbtW">刘宇宁宁在干横么10.20</option>
+                                        <option value="http://t.cn/AXwGybpF">刘宇宁《伤心的人都在跳舞》10.19</option>
+                                        <option value="http://t.cn/AXzTn1aS">刘宇宁的2025巡演西安站10.14</option>
+                                        <option value="http://t.cn/AXza6LiW">刘宇宁上海站《奇妙的惊喜》10.11</option>
+                                        <option value="http://t.cn/AXzAKJXR">刘宇宁直播10.7</option>
+                                        <option value="http://t.cn/AXzvfDNV">刘宇宁呆米特派员"圆圆"花絮10.6</option>
+                                        <option value="http://t.cn/AX7kvMFY">刘宇宁上海站合唱《提到了你》10.5</option>
+                                        <option value="http://t.cn/AX7B1Qsg">刘宇宁的2025巡演时空交错10.4</option>
+                                        <option value="http://t.cn/AX7Ty0uI">呆米特派员亲自拍摄的舞蹈花絮10.2</option>
                                     </optgroup>
                                 </select>
                             </div>
@@ -1000,3 +1018,4 @@
 </body>
 
 </html>
+
